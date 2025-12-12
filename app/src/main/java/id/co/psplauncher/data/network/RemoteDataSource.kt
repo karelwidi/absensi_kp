@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class RemoteDataSource@Inject constructor(@ApplicationContext context: Context)  {
     companion object {
-        const val BASE_URL = "https://api.katalis.info"
+        const val BASE_URL = "https://api-reqruitment.tkilocal.biz.id"
     }
 
     val ctx = context
