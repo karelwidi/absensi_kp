@@ -1,4 +1,4 @@
-package id.co.psplauncher.ui.main
+package id.co.psplauncher.ui.main.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,12 +18,19 @@ class MainViewModel @Inject constructor(
     private val userPreferences: UserPreferences
 ) : ViewModel() {
 
-    private var _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+    private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val loginResponse: LiveData<Resource<LoginResponse>> get() = _loginResponse
 
     fun login(username: String, password: String) = viewModelScope.launch {
         _loginResponse.value = Resource.Loading
-        _loginResponse.value = authRepository.login(username, password)
+        val result = authRepository.login(username,password)
+        if (result is Resource.Success) {
+            userPreferences.saveAccessToken(result.value.jwt)
+        }
+        _loginResponse.value = result
     }
 
+    fun getToken(): String? {
+        return userPreferences.getAccessToken()
+    }
 }
