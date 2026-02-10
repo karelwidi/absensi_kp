@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvHistoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@color/text_gray"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvHistoryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textColor="@color/text_gray_light"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistoryName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Waktu"
+            android:textSize="10sp"
+            android:textColor="@color/text_gray_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistoryDate"/>
+
+        <TextView
+            android:id="@+id/tvClockInTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clockIn"
+            android:textColor="@color/text_gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/cardBtn"
+            app:layout_constraintStart_toEndOf="@+id/tvHistoryDate"
+            app:layout_constraintTop_toTopOf="@+id/tvHistoryDate" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Clock In"
+            android:textColor="@color/text_gray"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/tvClockInTime"
+            app:layout_constraintTop_toBottomOf="@+id/tvClockInTime" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvClockInTime">
+
+            <ImageView
+                android:id="@+id/btnDetail"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@color/orange_primary"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white" />
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

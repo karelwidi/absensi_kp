@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PSP Launcher</string>
+    <string name="name">John Doe</string>
+    <string name="time">08:00:00 WIB</string>
+    <string name="absen">Absen Masuk</string>
+    <string name="date">05/12/2024</string>
+    <string name="clockIn">08:42</string>
+    <string name="copyright">Copyright by \nPT Teknologi Kartu Indonesia</string>
+
 </resources>
