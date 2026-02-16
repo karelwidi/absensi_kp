@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -25,7 +24,6 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import dagger.hilt.android.AndroidEntryPoint
-import id.co.psplauncher.R
 import id.co.psplauncher.Utils.handleApiError
 import id.co.psplauncher.Utils.visible
 import id.co.psplauncher.data.local.AbsenCache
@@ -50,6 +48,7 @@ class CameraActivity : AppCompatActivity() {
 
     @Inject
     lateinit var absenCache: AbsenCache
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -100,7 +99,6 @@ class CameraActivity : AppCompatActivity() {
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
-
             val preview = Preview.Builder().build().also {
                 it.setSurfaceProvider(binding.viewPre.surfaceProvider)
             }
@@ -113,10 +111,11 @@ class CameraActivity : AppCompatActivity() {
                 .also {
                     it.setAnalyzer(cameraExecutor, FaceAnalyzer())
                 }
+
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
             try {
-                cameraProvider.unbindAll() // Lepas semua use case sebelumnya
+                cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture, imageAnalyzer
                 )
@@ -126,6 +125,7 @@ class CameraActivity : AppCompatActivity() {
 
         }, ContextCompat.getMainExecutor(this))
     }
+
     private inner class FaceAnalyzer : ImageAnalysis.Analyzer {
         val opts = FaceDetectorOptions.Builder()
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
@@ -143,6 +143,11 @@ class CameraActivity : AppCompatActivity() {
                     .addOnSuccessListener { faces ->
                         if (faces.isNotEmpty()) {
                             Log.d("FaceDetection", "Wajah ditemukan: ${faces.size}")
+                            isPhotoTaken = true
+                            runOnUiThread {
+                                binding.tvInfo.text = "Wajah terdeteksi! Mengambil gambar..."
+                                takePhoto()
+                            }
                         }
                     }
                     .addOnFailureListener { e ->
@@ -185,9 +190,11 @@ class CameraActivity : AppCompatActivity() {
             }
         )
     }
+
     private fun resetCameraState(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         binding.progressBar.visible(false)
+        binding.tvInfo.text = "Silakan coba lagi"
         binding.btnCapture.isEnabled = true
         isPhotoTaken = false
     }
@@ -200,6 +207,7 @@ class CameraActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun processImageProxy(image: ImageProxy): Bitmap? {
         val buffer: ByteBuffer = image.planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
@@ -209,6 +217,7 @@ class CameraActivity : AppCompatActivity() {
 
         val matrix = Matrix()
         matrix.postRotate(image.imageInfo.rotationDegrees.toFloat())
+
         matrix.postScale(-1f, 1f)
 
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
@@ -228,9 +237,9 @@ class CameraActivity : AppCompatActivity() {
 
                         if (response.success) {
                             Toast.makeText(this@CameraActivity, "Upload Berhasil", Toast.LENGTH_SHORT).show()
-                            navigateToNextScreen()
+                            navigateToNextScreen(response.img_url)
                         } else {
-                            resetCameraState("Upload Gagal: ${response.img_url}")
+                            resetCameraState("Upload Gagal")
                         }
                     }
                     is Resource.Failure -> {
@@ -242,14 +251,14 @@ class CameraActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun navigateToNextScreen() {
+    private fun navigateToNextScreen(faceUrl: String?) {
         val lat = intent.getDoubleExtra("latitude", 0.0)
         val long = intent.getDoubleExtra("longitude", 0.0)
 
         val intent = Intent(this, InformasiDetailActivity::class.java).apply {
             putExtra("latitude", lat)
             putExtra("longitude", long)
+            putExtra("face_image_url", faceUrl)
         }
         startActivity(intent)
         finish()
