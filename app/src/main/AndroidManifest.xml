@@ -27,6 +27,21 @@
         android:theme="@style/Theme.PSPLauncher"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.success.successActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.infoAbsen.InformasiDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.camera.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.maps.MapsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.historyDetail.HistoryDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.menu.MenuActivity"
             android:exported="false" />
         <activity
