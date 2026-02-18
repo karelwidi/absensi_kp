@@ -6,12 +6,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
@@ -23,9 +20,8 @@ import id.co.psplauncher.data.local.AbsenCache
 import id.co.psplauncher.data.local.UserPreferences
 import id.co.psplauncher.data.network.Resource
 import id.co.psplauncher.databinding.ActivityInformasiDetailBinding
-import id.co.psplauncher.ui.main.success.successActivity
+import id.co.psplauncher.ui.main.success.SuccessActivity
 import kotlinx.coroutines.launch
-import okhttp3.Response
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -191,7 +187,7 @@ class InformasiDetailActivity : AppCompatActivity() {
         val userName = binding.tvName.text.toString()
         val finalTime = serverTime ?: SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-        val intent = Intent(this, successActivity::class.java).apply {
+        val intent = Intent(this, SuccessActivity::class.java).apply {
             putExtra("nama", userName)
             putExtra("datetime", finalTime)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

@@ -11,6 +11,9 @@ import com.google.android.material.snackbar.Snackbar
 import id.co.psplauncher.data.network.Resource
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 object Utils {
     fun Activity.handleApiError(
@@ -63,6 +66,22 @@ object Utils {
             startActivity(it)
         }
     }
+
+    fun parseIsoDate(dateString: String) : Date?{
+        return try {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
+            format.parse(dateString.take(19))
+        }catch (e: Exception){
+            null
+        }
+    }
+
+    fun Date.toDisplayFormat(): String {
+        val format = SimpleDateFormat("d MMMM yyyy, HH:mm", Locale("id", "ID"))
+        return format.format(this)
+    }
+
+
 
     fun formatCurrency(doubleValue: Double): String {
         val unusualSymbols = DecimalFormatSymbols()

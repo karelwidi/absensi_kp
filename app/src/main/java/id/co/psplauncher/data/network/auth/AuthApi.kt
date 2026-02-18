@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface AuthApi {
 
     @Headers("Content-Type: application/json")
-    @POST("katalis/login")
+    @POST("auth/login")
     suspend fun login(
         @Body info: ModelLogin
     ): Response<LoginResponse>

@@ -26,6 +26,7 @@ class MainViewModel @Inject constructor(
         val result = authRepository.login(username,password)
         if (result is Resource.Success) {
             userPreferences.saveAccessToken(result.value.jwt)
+            userPreferences.saveUserName(username)
         }
         _loginResponse.value = result
     }

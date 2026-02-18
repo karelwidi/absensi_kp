@@ -2,7 +2,6 @@ package id.co.psplauncher.ui.main.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,7 +9,6 @@ import id.co.psplauncher.Utils.handleApiError
 import id.co.psplauncher.Utils.startNewActivity
 import id.co.psplauncher.Utils.visible
 import id.co.psplauncher.data.network.Resource
-import id.co.psplauncher.data.network.model.ModelLogin
 import id.co.psplauncher.databinding.ActivityMainBinding
 import id.co.psplauncher.ui.main.menu.MenuActivity
 
@@ -75,9 +73,8 @@ class MainActivity : AppCompatActivity() {
 
                         Toast.makeText(this@MainActivity, "Login Berhasil!", Toast.LENGTH_SHORT)
                             .show()
-
                         startNewActivity(MenuActivity::class.java)
-                        finish()
+
                     }
 
                     is Resource.Failure -> {

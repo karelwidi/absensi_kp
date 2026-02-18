@@ -194,7 +194,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
-        tools:itemCount="3"
+        tools:itemCount="1"
         tools:listitem="@layout/item_absen_riwayat" />
 
     <LinearLayout

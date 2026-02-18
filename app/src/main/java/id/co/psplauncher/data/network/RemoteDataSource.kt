@@ -18,7 +18,6 @@ class RemoteDataSource@Inject constructor(@ApplicationContext context: Context) 
 
     val ctx = context
     var isDebug = true
-
     val baseURL get() = BASE_URL
 
     fun <Api> buildApi(

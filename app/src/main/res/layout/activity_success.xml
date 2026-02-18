@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="24dp"
-    tools:context=".ui.main.success.successActivity">
+    tools:context=".ui.main.success.SuccessActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvBack"
