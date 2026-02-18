@@ -27,7 +27,7 @@
         android:theme="@style/Theme.PSPLauncher"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main.success.successActivity"
+            android:name=".ui.main.success.SuccessActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.infoAbsen.InformasiDetailActivity"
